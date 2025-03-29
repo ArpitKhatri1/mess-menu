@@ -1,4 +1,3 @@
-//@ts-ignore
 "use client"
 
 import axios from "axios";
@@ -20,11 +19,10 @@ export default function Home() {
     return valid
   }
 
-  const [sfile, setFile] = useState<File | null>()
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
-      setFile(file)
+
     } else {
       return
     }

@@ -62,7 +62,7 @@ const Menupage = () => {
     const [selectedDay, setSelectedDay] = useState<string>(availableDays[0].day);
     const [menu, setMenu] = useState<MenuType>({ breakfast: [], lunch: [], dinner: [] });
     const [apiData, setApiData] = useState<ApiDataType | null>(null);
-
+    console.log(selectedDate)
     const weekDays = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
 
     useEffect(() => {
