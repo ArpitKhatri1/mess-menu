@@ -22,7 +22,6 @@ type MenuType = {
 
 const Menupage = () => {
 
-
   const availableDays = Array.from({ length: 7 }, (_, i) => {
     const today = new Date();
     today.setDate(today.getDate() + i);
@@ -80,7 +79,7 @@ const Menupage = () => {
 
     <div className="mx-auto ">
 
-      <div className="flex fixed bottom-0 mt-20 w-full h-10 text-lg bg-red-400 justify-evenly  rounded cursor-pointer">
+      <div className="z-50 flex fixed bottom-0 mt-20 w-full h-10 text-lg bg-red-400 justify-evenly  rounded cursor-pointer">
         {weekDays.map((day) => (
           <div
             key={day}
