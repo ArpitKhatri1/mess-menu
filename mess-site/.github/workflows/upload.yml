@@ -1,0 +1,13 @@
+name: Populate script on upload
+
+on:
+  repository_dispatch:
+    types: [file-upload]
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
