@@ -14,6 +14,7 @@ export const options = {
   callbacks: {
     async jwt({ token, user }: any) {
       if (user) {
+        console.log(user.email);
         if (user.email !== (process.env.VALID_EMAIL as string)) {
           return null;
         }
