@@ -66,14 +66,11 @@ export default function Home() {
                 coloumArray.push(tempArray)
 
             })
-            console.log(coloumArray)
 
             const finalDays = coloumArray.map((list: any) => {
                 const key = Object.keys(list)[0];
                 return [key, list[key][0]];
             });
-            console.log(finalDays)
-            // console.log(finalData)
 
             const fileWriteJson = {
                 dates: finalDays,
@@ -82,7 +79,6 @@ export default function Home() {
 
             const res = await axios.post("/api/file", fileWriteJson)
             const data = await res.data
-            console.log(data)
 
         }
         parseFile()

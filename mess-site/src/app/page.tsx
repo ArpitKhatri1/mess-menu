@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { returnMenuItems, formatDate } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 type ApiDataType = {
   dates: [string, string][];
   columnData: {
@@ -72,8 +73,6 @@ const Menupage = () => {
       setMenu(returnMenuItems(filteredMenuItems));
     }
   }, [apiData, selectedDay]);
-
-  console.log(menu)
 
   return (
 
