@@ -73,6 +73,7 @@ const Menupage = () => {
       setMenu(returnMenuItems(filteredMenuItems));
     }
   }, [apiData, selectedDay]);
+  console.log(apiData)
 
   return (
 

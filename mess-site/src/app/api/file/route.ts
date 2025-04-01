@@ -5,12 +5,6 @@ import axios from "axios";
 import { supabase } from "@/lib/supabase";
 
 export async function POST(req: Request) {
-  const { data: user } = await supabase.auth.getUser();
-  if (!user) {
-    console.error("User not authenticated");
-    return;
-  }
-
   const body = await req.json();
 
   const blob = new Blob([JSON.stringify(body, null, 2)], {
@@ -19,11 +13,30 @@ export async function POST(req: Request) {
 
   const filePath = "dataset.json";
 
+  const { data: existingFile } = await supabase.storage
+    .from("menu")
+    .getPublicUrl(filePath);
+
+  if (existingFile) {
+    const { error: deleteError } = await supabase.storage
+      .from("menu")
+      .remove([filePath]);
+
+    if (deleteError) {
+      console.log("Error deleting existing file:", deleteError);
+      return NextResponse.json({
+        msg: "Error deleting existing file",
+        error: deleteError,
+      });
+    }
+  }
+
   const { data, error } = await supabase.storage
     .from("menu")
     .upload(filePath, blob, {
       contentType: "application/json",
     });
+  console.log(error);
 
   return NextResponse.json({
     msg: "File added sucessfully",

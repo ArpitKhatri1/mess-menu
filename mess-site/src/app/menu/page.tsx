@@ -76,9 +76,12 @@ export default function Home() {
                 dates: finalDays,
                 columnData: coloumArray
             }
+            console.log("first")
+            console.log(fileWriteJson)
 
             const res = await axios.post("/api/file", fileWriteJson)
             const data = await res.data
+            console.log(data)
 
         }
         parseFile()
