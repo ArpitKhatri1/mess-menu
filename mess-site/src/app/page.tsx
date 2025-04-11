@@ -32,7 +32,6 @@ const Menupage = () => {
     };
   });
 
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [formattedDate, setFormattedDate] = useState<string>(format(new Date(), "yyyy-MM-dd"));
   const [selectedDay, setSelectedDay] = useState<string>(availableDays[0].day);
   const [menu, setMenu] = useState<MenuType>({ breakfast: [], lunch: [], dinner: [] });
@@ -43,8 +42,48 @@ const Menupage = () => {
   useEffect(() => {
     async function getFileData() {
       try {
-        const response = await axios.get("/api/file");
-        setApiData(response.data.data);
+        const localStorageMessMenu = localStorage.getItem("mess-menu")
+        if (!localStorageMessMenu) {
+          const response = await axios.get("/api/file");
+          const setAPIResponse: ApiDataType = response.data.data
+          setApiData(setAPIResponse);
+
+          localStorage.setItem("mess-menu", JSON.stringify({
+            menu: setAPIResponse
+          }))
+        } else {
+          const localStorageDataRes = JSON.parse(localStorage.getItem("mess-menu") as string)
+          console.log(localStorageDataRes)
+          const localStorageData: ApiDataType = localStorageDataRes.menu
+          console.log("local data is")
+
+          console.log(localStorageData)
+
+          const lastDateStr = localStorageData.dates[localStorageData.dates.length - 1][0];
+          const dateObj = new Date(lastDateStr);
+
+          // Set time to 11:59 PM
+          dateObj.setHours(23);
+          dateObj.setMinutes(59);
+          dateObj.setSeconds(59);
+
+          const currDate = new Date()
+
+          if (dateObj.getTime() < currDate.getTime()) {
+            // fetch new Data
+            const response = await axios.get("/api/file");
+            const setAPIResponse: ApiDataType = response.data.data
+            setApiData(setAPIResponse);
+
+            localStorage.setItem("mess-menu", JSON.stringify({
+              menu: setAPIResponse
+            }))
+          } else {
+            setApiData(localStorageData)
+          }
+
+        }
+
       } catch (error) {
         console.error("Error fetching menu data:", error);
       }
@@ -55,7 +94,7 @@ const Menupage = () => {
   useEffect(() => {
     const foundDay = availableDays.find((day) => day.day === selectedDay);
     if (foundDay) {
-      setSelectedDate(new Date(foundDay.date));
+
       setFormattedDate(foundDay.date);
     }
 
@@ -73,7 +112,6 @@ const Menupage = () => {
       setMenu(returnMenuItems(filteredMenuItems));
     }
   }, [apiData, selectedDay]);
-  console.log(apiData)
 
   return (
 
