@@ -86,6 +86,7 @@ const Menupage = () => {
       }
     }
     getFileData();
+
   }, []);
 
   useEffect(() => {
@@ -109,6 +110,15 @@ const Menupage = () => {
       setMenu(returnMenuItems(filteredMenuItems));
     }
   }, [apiData, selectedDay]);
+
+  useEffect(() => {
+    if (!apiData) return;
+    console.log("here")
+
+    if (menu.breakfast.length == 0 && selectedDay == availableDays[0].day) {
+      localStorage.removeItem("mess-menu")
+    }
+  }, [menu])
 
   return (
 
