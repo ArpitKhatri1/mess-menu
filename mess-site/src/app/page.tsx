@@ -53,11 +53,8 @@ const Menupage = () => {
           }))
         } else {
           const localStorageDataRes = JSON.parse(localStorage.getItem("mess-menu") as string)
-          console.log(localStorageDataRes)
-          const localStorageData: ApiDataType = localStorageDataRes.menu
-          console.log("local data is")
 
-          console.log(localStorageData)
+          const localStorageData: ApiDataType = localStorageDataRes.menu
 
           const lastDateStr = localStorageData.dates[localStorageData.dates.length - 1][0];
           const dateObj = new Date(lastDateStr);
