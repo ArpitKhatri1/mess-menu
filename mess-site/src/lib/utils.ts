@@ -27,7 +27,8 @@ export function returnMenuItems(
 
   let prev = "";
 
-  menu.forEach((item) => {
+  menu.forEach((getItem) => {
+    const item = getItem?.trim();
     if (item === "BREAKFAST") prev = "BREAKFAST";
     else if (item === "LUNCH") prev = "LUNCH";
     else if (item === "DINNER") prev = "DINNER";

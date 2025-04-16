@@ -162,11 +162,7 @@ const Menupage = () => {
                   <div className="h-fit md:min-h-[400px] bg-neutral-200 mx-auto rounded-xl w-[300px]">
                     <h3 className="relative text-2xl flex justify-center font-semibold mb-2 bg-yellow-500 px-20 py-5 rounded-t-xl">
                       LUNCH
-                      <Link href="/menu">
-                        <div className="absolute right-2 top-1/2 -translate-y-1/2 bg-yellow-500 text-yellow-500  rounded">
-                          he
-                        </div>
-                      </Link>
+
                     </h3>
                     <ul className="list-disc pl-6 space-y-2 pb-5 mt-5">
                       {menu.lunch.map((item, index) => (
